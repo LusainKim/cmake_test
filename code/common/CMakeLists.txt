@@ -4,15 +4,11 @@ make_library(${target} "STATIC")
 
 add_sources(${target}
 	"Source Files"
-	"LineParser.cpp"
+	"common.cpp"
 )
 
 add_sources(${target}
     "Header Files"
+	"common.h"
     "LineParser.h"
-)
-
-target_link_libraries(${target}
-	PUBLIC
-		${WINLIBS}
 )

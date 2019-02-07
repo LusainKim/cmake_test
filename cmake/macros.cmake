@@ -11,6 +11,11 @@ endmacro ()
 
 function (subsystem module sub)
 	set_target_properties (${module} PROPERTIES LINK_FLAGS "/SUBSYSTEM:${sub}")
+	if (${sub} STREQUAL "WINDOWS")
+		add_definitions(-D_WINDOWS)
+	elseif (${sub} STREQUAL "CONSOLE")
+		add_definitions(-D_CONSOLE)
+	endif ()
 endfunction ()
 
 # must use to after project making
@@ -28,13 +33,17 @@ function (make_library name type)
 	string(TOUPPER ${type} ${type})
 	add_library(${name} ${type})
 	
+	if (${type} STREQUAL "SHARED")
+		subsystem(${name} "WINDOWS")
+	endif ()
 	set_working_dir(${name})
 endfunction ()
 
 function(set_pch target src header)
-	if(NOT ${MSVC})
+	if (NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio")
+		# Now only support precompiled headers for the Visual Studio projects
 		return()
-	endif()
+	endif ()
 
 	#message("Enable PCH for ${target}")
 	set(pch_file "$(IntDir)$(TargetName).pch")
@@ -48,9 +57,11 @@ function(set_pch target src header)
 endfunction()
 
 function (unset_pch)
-	if(NOT ${MSVC})
+	if (NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio")
+		# Now only support precompiled headers for the Visual Studio projects
 		return()
-	endif()
+	endif ()
+
 	set_property(SOURCE ${ARGN} APPEND PROPERTY COMPILE_FLAGS "/Y-")
 endfunction ()
 
@@ -74,3 +85,13 @@ function (add_pch target src header)
 	add_sources(${target} "pch" ${sources})
 	set_pch(${target} ${src} ${header})
 endfunction ()
+
+function (add_and_link_dependency target dependency)
+	add_dependencies(${target} ${dependency})
+
+	target_link_libraries(${target}
+		PUBLIC
+			"${dependency}.lib"
+	)
+endfunction ()
+

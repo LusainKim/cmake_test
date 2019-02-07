@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.11)
 
 include(cmake/macros.cmake)
 
@@ -18,8 +18,5 @@ link_directories(${DEFAULT_OUTPUT_DIRECTORY})
 set(SOLUTION_NAME "cmake_test")
 
 project(${SOLUTION_NAME})
-
-# include root directory
-include_directories(${ROOT})
 
 add_subdirectory(code)

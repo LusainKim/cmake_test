@@ -13,6 +13,9 @@ add_sources(${target}
 	"Header Files"
 )
 
+add_and_link_dependency(${target} common)
+add_and_link_dependency(${target} module)
+
 target_link_libraries(${target}
 	PUBLIC
 		${WINLIBS}
