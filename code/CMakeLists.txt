@@ -1,19 +1,7 @@
-set(target main)
+add_subdirectory(client)
 
-make_executable(${target} "CONSOLE")
+# static library
+add_subdirectory(common)
 
-add_pch(${target} pch.cpp pch.h) 
-
-add_sources(${target}
-	"Source Files"
-	"main.cpp"
-)
-
-add_sources(${target}
-	"Header Files"
-)
-
-target_link_libraries(${target}
-	PUBLIC
-		${WINLIBS}
-)
+# dynamic library
+add_subdirectory(module)

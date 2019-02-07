@@ -24,6 +24,13 @@ function (make_executable name system)
 	set_working_dir(${name})
 endfunction ()
 
+function (make_library name type)
+	string(TOUPPER ${type} ${type})
+	add_library(${name} ${type})
+	
+	set_working_dir(${name})
+endfunction ()
+
 function(set_pch target src header)
 	if(NOT ${MSVC})
 		return()
