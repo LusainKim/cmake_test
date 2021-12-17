@@ -20,7 +20,6 @@ add_sources(${target}
 	"math.h"
 )
 
-
 target_link_libraries(${target}
 	PUBLIC
 		${WINLIBS}

@@ -9,7 +9,7 @@ int main()
 	std::cout << "hello, cmake-test?" << std::endl;
 
 //	std::cout << std::experimental::filesystem::current_path() << std::endl;
-	Lus::line_parser parser { "../../sample_text.txt" };
+	Lus::line_parser parser { "sample_text.txt" };
 	for (const auto& p : parser)
 	{
 		std::cout << '[' << p << ']' << std::endl;

@@ -23,7 +23,7 @@ namespace Lus
 		base_line_parser() = default;
 		base_line_parser(const string_t& filename) 
 		{
-			namespace fs = std::experimental::filesystem;
+			namespace fs = std::filesystem;
 			using ifstream_t = std::basic_ifstream<elem>;
 
 			ifstream_t ifs { filename, std::ios::binary };
